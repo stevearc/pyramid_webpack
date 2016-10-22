@@ -1,0 +1,4 @@
+nose
+mock
+pyramid_jinja2
+webtest

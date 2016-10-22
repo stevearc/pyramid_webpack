@@ -1,0 +1,13 @@
+language: python
+python: "2.7"
+env:
+  - TOXENV=py26
+  - TOXENV=py27
+  - TOXENV=py33
+  - TOXENV=py34
+  - TOXENV=py35
+install:
+  - pip install tox coveralls
+script: tox
+after_success:
+  if [ "$TOXENV" == "py27" ]; then coveralls; fi

@@ -1,0 +1,8 @@
+nose
+mock
+pyramid_jinja2
+webtest
+pylint==1.6.4
+pep8
+coverage
+docutils
