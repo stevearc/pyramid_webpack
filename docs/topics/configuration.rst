@@ -82,15 +82,56 @@ more detail.
 
 Multiple Configs
 ^^^^^^^^^^^^^^^^
-TODO
+If you have multiple instances of webpack running and generating bundles, you
+can load them as well by giving them names and adding them to the
+``webpack.configs`` option. You can then configure those instances by prefixing
+the same options in the config file with ``webpack.<name>.``. For example::
+
+    webpack.debug = True
+    webpack.bundle_dir = webpack/bundles
+    webpack.stats_file = webpack/stats.json
+    webpack.configs =
+        other
+
+    webpack.other.bundle_dir = webpack/other/bundles
+    webpack.other.stats_fie = webpack/other/stats.json
+
+For any of the options that are marked as ``inherits`` (for example,
+``webpack.debug``), it will default to whatever value was provided to the
+default configuration. For example, the value of ``webpack.other.debug`` in the
+above example will default to ``True`` because ``webpack.debug = True``.
+
+For information on how to render bundles from different configs, see the docs on
+:ref:`templates`.
 
 Static View Examples
 ^^^^^^^^^^^^^^^^^^^^
-TODO
-Development
+Here we'll go over a couple of example configurations for the asset static views
+and how they differ.
 
-Production
+The simplest version can be used in development or production, and will serve
+the static assets using pyramid::
 
-Production external CDN
+    webpack.bundle_dir = webpack/bundles
 
-Production custom
+If you're running in production and want to serve the assets from a CDN, you can
+instead use a static_view_name::
+
+    # Don't need a webpack.bundle_dir
+    webpack.static_view_name = //my.cdn.com/
+
+And if you want to full control over how the static views are set up, you can
+disable them::
+
+    webpack.static_view = False
+
+And set it up yourself:
+
+.. code-block:: python
+
+    for config_name, state in config.registry.webpack.iteritems():
+        # You should use state.static_view_path as the path.
+        # That value is used to generate the urls via request.static_url()
+        config.add_static_view(name="//my.cdn.com/" + config_name,
+                               path=state.static_view_path,
+                               cache_max_age=64000)
