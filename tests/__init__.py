@@ -197,7 +197,7 @@ class TestWebpackState(TempDirTest):
         resource = StaticResource('pyramid_webpack:jinja2ext.py')
         import pyramid_webpack.jinja2ext
         with resource.open() as i:
-            self.assertEqual(i.read(),
+            self.assertEqual(i.read().decode('utf-8'),
                              inspect.getsource(pyramid_webpack.jinja2ext))
 
 
@@ -368,7 +368,7 @@ class TestWebapp(TempDirTest):
     def test_get_bundle(self):
         """ get_bundle() returns a list of all chunks in the bundle """
         res = self.app.get('/bundle/DEFAULT/main')
-        bundle = json.loads(res.body)
+        bundle = json.loads(res.body.decode('utf-8'))
         expected = self.stats1['chunks']['main'][0]
         self.assertEqual(len(bundle), 1)
         self.assertEqual(bundle[0]['name'], expected['name'])
@@ -378,7 +378,7 @@ class TestWebapp(TempDirTest):
     def test_get_second_bundle(self):
         """ get_bundle() works with the secondary webpack configs """
         res = self.app.get('/bundle/other/libs')
-        bundle = json.loads(res.body)
+        bundle = json.loads(res.body.decode('utf-8'))
         expected = self.stats2['chunks']['libs'][0]
         self.assertEqual(len(bundle), 1)
         self.assertEqual(bundle[0]['name'], expected['name'])
@@ -389,10 +389,10 @@ class TestWebapp(TempDirTest):
         """ The jinja2 extension can use 'webasset' blocks """
         res = self.app.get('/bundle/DEFAULT/main?renderer=paths.jinja2')
         expected = self.stats1['chunks']['main'][0]
-        self.assertEqual(res.body, expected['path'] + '\n')
+        self.assertEqual(res.body.decode('utf-8'), expected['path'] + '\n')
 
     def test_jinja2_ext(self):
         """ The jinja2 extension can specify file extensions """
         res = self.app.get('/bundle/other/libs?renderer=paths2.jinja2')
         expected = self.stats2['chunks']['libs'][0]
-        self.assertEqual(res.body, expected['path'] + '\n')
+        self.assertEqual(res.body.decode('utf-8'), expected['path'] + '\n')

@@ -1,6 +1,7 @@
 """ Jinja2 extension for pyramid_webpack """
 from __future__ import unicode_literals
 
+import six
 from pyramid.threadlocal import get_current_request
 
 from jinja2 import nodes
@@ -35,7 +36,7 @@ class WebpackExtension(Extension):
         # we only listen to ``'webpack'`` so this will be a name token with
         # `webpack` as value.  We get the line number so that we can give
         # that line number to the nodes we create by hand.
-        lineno = parser.stream.next().lineno
+        lineno = six.next(parser.stream).lineno
         ctx_ref = nodes.ContextReference()
 
         # Parse a single expression that is the 'bundle' or 'config:bundle'
