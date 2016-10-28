@@ -12,7 +12,7 @@ from pyramid.decorator import reify
 from pyramid.settings import asbool, aslist
 
 
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 
 
 SENTINEL = object()
