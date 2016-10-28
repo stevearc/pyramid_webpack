@@ -39,8 +39,17 @@ webpack.static_view_name
 **Argument:** str, default ``webpack-DEFAULT``
 
 This will be the ``name`` argument passed to `add_static_view
-<http://docs.pylonsproject.org/projects/pyramid/en/latest/api/config.html#pyramid.config.Configurator.add_static_view>`_. 
+<http://docs.pylonsproject.org/projects/pyramid/en/latest/api/config.html#pyramid.config.Configurator.add_static_view>`_.
 
+webpack.cache_max_age
+---------------------
+**Argument:** int, inherits, default ``0`` or ``3600``
+
+This will be the ``cache_max_age`` argument passed to `add_static_view
+<http://docs.pylonsproject.org/projects/pyramid/en/latest/api/config.html#pyramid.config.Configurator.add_static_view>`_.
+It defaults to ``0`` when ``webpack.debug`` is true, and ``3600`` when false.
+Additionally, you can use the special value ``future`` to set it for 10 years in
+the future.
 
 webpack.stats_file
 ------------------
