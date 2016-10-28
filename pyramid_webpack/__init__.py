@@ -74,6 +74,16 @@ class WebpackState(object):
         self.stats_file = StaticResource.create(stats_file_path,
                                                 root_package_name)
         self.timeout = float(self._get_setting('timeout', 0))
+        max_age = self._get_setting('cache_max_age', None)
+        if max_age is None:
+            if not self.debug:
+                max_age = 3600
+        elif max_age == 'future':
+            # 10 years in the future
+            max_age = 10 * 365 * 24 * 60 * 60
+        else:
+            max_age = float(max_age)
+        self.cache_max_age = max_age
         self.ignore = aslist(self._get_setting('ignore',
                                                [r'*.hot-update.js', r'*.map']))
         ignore_re = aslist(self._get_setting('ignore_re', []))
@@ -227,6 +237,7 @@ def includeme(config):
     for state in six.itervalues(config.registry.webpack):
         if state.static_view:
             config.add_static_view(name=state.static_view_name,
-                                   path=state.static_view_path)
+                                   path=state.static_view_path,
+                                   cache_max_age=state.cache_max_age)
 
     config.add_request_method(get_webpack, 'webpack')

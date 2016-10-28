@@ -200,6 +200,38 @@ class TestWebpackState(TempDirTest):
             self.assertEqual(i.read().decode('utf-8'),
                              inspect.getsource(pyramid_webpack.jinja2ext))
 
+    def test_future_expire(self):
+        """ cache_max_age = future uses 10 year expiration """
+        settings = {
+            'webpack.cache_max_age': 'future',
+        }
+        state = WebpackState(settings, 'mypackage')
+        self.assertTrue(state.cache_max_age > 100000)
+
+    def test_custom_expire(self):
+        """ cache_max_age can specify view expiration """
+        settings = {
+            'webpack.cache_max_age': '1234',
+        }
+        state = WebpackState(settings, 'mypackage')
+        self.assertEqual(state.cache_max_age, 1234)
+
+    def test_default_expire_debug(self):
+        """ cache_max_age defaults to None in debug mode """
+        settings = {
+            'webpack.debug': 'true',
+        }
+        state = WebpackState(settings, 'mypackage')
+        self.assertIsNone(state.cache_max_age)
+
+    def test_default_expire(self):
+        """ cache_max_age defaults to 3600 in non-debug mode """
+        settings = {
+            'webpack.debug': 'false',
+        }
+        state = WebpackState(settings, 'mypackage')
+        self.assertEqual(state.cache_max_age, 3600)
+
 
 class TestWebpack(unittest.TestCase):
 
