@@ -128,7 +128,7 @@ class WebpackState(object):
         for attempt in range(0, 3):
             try:
                 with self.stats_file.open() as f:
-                    return json.load(f)
+                    return json.loads(f.read().decode())
             except ValueError:
                 # If we failed to parse the JSON, it's possible that the
                 # webpack process is writing to it concurrently and it's in a
