@@ -52,7 +52,7 @@ class WebpackExtension(Extension):
         # drop the needle (which would always be `endwebpack` in that case)
         body = parser.parse_statements(['name:endwebpack'], drop_needle=True)
 
-        call_args = [nodes.Name('ASSET', 'store')]
+        call_args = [nodes.Name('ASSET', 'param')]
 
         return nodes.CallBlock(self.call_method('_get_graph', args), call_args,
                                [], body).set_lineno(lineno)
