@@ -27,7 +27,9 @@ We're also going to install `pyramid_jinja2
 
     pip install pyramid_jinja2 pyramid_webpack
 
-Add the following to your development.ini file::
+Add the following to your development.ini file:
+
+.. code-block:: ini
 
     # If this option already exists, append the values
     pyramid.includes = 
@@ -55,7 +57,7 @@ your PATH for the following steps.
 
 Put the following into ``webpack.config.js``
 
-.. code-block:: json
+.. code-block:: javascript
 
   var path = require("path")
   var BundleTracker = require('webpack-bundle-tracker')
@@ -66,8 +68,8 @@ Put the following into ``webpack.config.js``
     entry: './assets/js/index',
 
     output: {
-        path: path.resolve('./hello_world/webpack/bundles/'),
-        filename: "[name]-[hash].js",
+      path: path.resolve('./hello_world/webpack/bundles/'),
+      filename: "[name]-[hash].js",
     },
 
     plugins: [
@@ -109,7 +111,9 @@ Using in templates
 ------------------
 To render a bundle inside a Chameleon template, we're going to call
 ``get_bundle`` directly. Create a file called ``hello_world/templates/index.pt`` and add
-the following::
+the following:
+
+.. code-block:: html
 
   <!DOCTYPE html>
   <html>
@@ -128,7 +132,9 @@ Then change the renderer in ``hello_world/views.py`` to be
 "Javascript Loaded".
 
 To render a bundle in Jinja2, make a template called
-``hello_world/templates/index.jinja2`` and add the following::
+``hello_world/templates/index.jinja2`` and add the following:
+
+.. code-block:: html
 
   <!DOCTYPE html>
   <html>
