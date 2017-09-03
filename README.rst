@@ -12,6 +12,28 @@ Pyramid Webpack
 
 A Pyramid extension for managing assets with Webpack.
 
-For a complete guide to get up and running check the `Getting Started
-<http://pyramid-webpack.readthedocs.io/en/latest/topics/getting_started.html>`_
-section of the docs.
+Quick Start
+-----------
+
+Install `cookiecutter <https://cookiecutter.readthedocs.io/en/latest/installation.html>`__
+
+Create a new project::
+
+  $ cookiecutter gh:stevearc/pyramid-cookiecutter-webpack
+
+Install and set up necessary packages::
+
+  $ cd <your project>
+  $ virtualenv env
+  $ source env/bin/activate
+  $ pip install --upgrade pip
+  $ pip install -e .
+  $ npm install
+
+Start the webpack build::
+
+  $ npm run watch
+
+In a separate terminal, start the Pyramid server::
+
+  $ pserve --reload development.ini
