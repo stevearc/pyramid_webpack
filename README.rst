@@ -15,7 +15,7 @@ A Pyramid extension for managing assets with Webpack.
 Quick Start
 -----------
 
-Install `cookiecutter <https://cookiecutter.readthedocs.io/en/latest/installation.html>`_
+Install `cookiecutter <https://cookiecutter.readthedocs.io/en/latest/installation.html>`__
 
 Create a new project::
 
