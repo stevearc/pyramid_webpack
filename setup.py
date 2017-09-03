@@ -22,7 +22,7 @@ TEST_REQUIREMENTS = [
 if __name__ == "__main__":
     setup(
         name='pyramid_webpack',
-        version='0.1.1',
+        version='0.1.2',
         description='Pyramid extension for managing assets with Webpack.',
         long_description=README + '\n\n' + CHANGES,
         classifiers=[
