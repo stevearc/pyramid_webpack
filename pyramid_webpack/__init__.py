@@ -42,10 +42,7 @@ class StaticResource(object):
             # Asset specification
             package, filename = self.path.split(':')
             contents = resource_string(package, filename)
-            if isinstance(contents, six.binary_type):
-                return StringIO(contents.decode('utf-8'))
-            else:
-                return StringIO(contents)
+            return StringIO(contents.decode('utf-8'))
 
     def __str__(self):
         return "Resource('{0}')".format(self.path)
