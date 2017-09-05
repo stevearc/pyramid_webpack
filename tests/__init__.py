@@ -77,6 +77,20 @@ class TestWebpackState(TempDirTest):
         stats = state.load_stats()
         self.assertEqual(stats, data)
 
+    def test_load_stats_resource_stream(self):
+        """
+        State loads stats from a json file specified in a:b/c.json notation
+
+        Tests the regression where loading the stats file specified in the
+        notation didn't work for Python 3.5.
+        """
+        settings = {
+            'webpack.stats_file': 'tests:test-stats.json',
+        }
+        state = WebpackState(settings)
+        stats = state.load_stats()
+        self.assertEqual(stats, {'a': 'b'})
+
     def test_missing_stats(self):
         """ raise IOError if stats file is missing """
         state = WebpackState({})
