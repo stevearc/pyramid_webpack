@@ -1,13 +1,13 @@
 """ pyramid_webpack """
-import os
 import fnmatch
 import posixpath
 import re
 import time
+from io import StringIO
 
 import json
 import six
-from pkg_resources import resource_stream
+from pkg_resources import resource_string
 from pyramid.decorator import reify
 from pyramid.settings import asbool, aslist
 
@@ -41,7 +41,11 @@ class StaticResource(object):
         else:
             # Asset specification
             package, filename = self.path.split(':')
-            return resource_stream(package, filename)
+            contents = resource_string(package, filename)
+            if isinstance(contents, six.binary_type):
+                return StringIO(contents.decode('utf-8'))
+            else:
+                return StringIO(contents)
 
     def __str__(self):
         return "Resource('{0}')".format(self.path)
