@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.1.3 - 2017/9/5
+----------------
+* Fix loading stats file in python 3.5 `PR #6 <https://github.com/stevearc/pyramid_webpack/pull/6>`__
+
 0.1.2 - 2017/9/3
 ----------------
 * Fix `#4 <https://github.com/stevearc/pyramid_webpack/issues/4>`__: Issue with Jinja2 rendering
