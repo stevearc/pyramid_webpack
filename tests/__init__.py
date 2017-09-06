@@ -77,6 +77,20 @@ class TestWebpackState(TempDirTest):
         stats = state.load_stats()
         self.assertEqual(stats, data)
 
+    def test_load_stats_as_asset(self):
+        """
+        State loads stats from a json file specified in a:b/c.json notation
+
+        Tests the regression where loading the stats file specified in the
+        notation didn't work for Python 3 (before 3.6).
+        """
+        settings = {
+            'webpack.stats_file': 'tests:test-stats.json',
+        }
+        state = WebpackState(settings)
+        stats = state.load_stats()
+        self.assertEqual(stats, {'a': 'b'})
+
     def test_missing_stats(self):
         """ raise IOError if stats file is missing """
         state = WebpackState({})
@@ -197,7 +211,7 @@ class TestWebpackState(TempDirTest):
         resource = StaticResource('pyramid_webpack:jinja2ext.py')
         import pyramid_webpack.jinja2ext
         with resource.open() as i:
-            self.assertEqual(i.read().decode('utf-8'),
+            self.assertEqual(i.read(),
                              inspect.getsource(pyramid_webpack.jinja2ext))
 
     def test_future_expire(self):
