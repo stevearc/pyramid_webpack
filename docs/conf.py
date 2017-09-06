@@ -23,7 +23,7 @@ project = u'pyramid_webpack'
 copyright = u'2016, Steven Arcangeli'
 github_user = u'stevearc'
 
-release = '0.1.2'
+release = '0.1.3'
 version = '.'.join(release.split('.')[:2])
 
 exclude_patterns = ['_build']
