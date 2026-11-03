@@ -2,7 +2,7 @@ nose
 mock
 pyramid_jinja2
 webtest
-pylint==1.6.4
+pylint==4.0.9
 pep8
 coverage
 docutils
